@@ -1,0 +1,50 @@
+apiVersion: "v1"
+protocol: "ssh"
+address: ":22"
+description: "SSH interactive"
+commands:
+  - regex: "^ls /var/www$"
+    handler: "html example.com test-site logs index.html"
+  - regex: "^lsblk$"
+    handler: "NAME MAJ:MIN RM SIZE RO TYPE MOUNTPOINTS\nsda 8:0 0 20G 0 disk\n├─sda1 8:1 0 19G 0 part /\n├─sda2 8:2 0 1K 0 part\n└─sda5 8:5 0 975M 0 part [SWAP]\nsr0 11:0 1 1024M 0 rom"
+  - regex: "^ip a$"
+    handler: "1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000\nlink/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00\ninet 127.0.0.1/8 scope host lo\nvalid_lft forever preferred_lft forever\ninet6 ::1/128 scope host noprefixroute\nvalid_lft forever preferred_lft forever\n2: enp0s3: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP group default qlen 1000\nlink/ether 08:00:27:e1:07:d6 brd ff:ff:ff:ff:ff:ff\ninet 192.168.11.66/24 brd 192.168.11.255 scope global dynamic enp0s3\nvalid_lft 85859sec preferred_lft 85859sec\ninet6 2a00:f3c:eed4:0:a00:27ff:fee1:7d6/64 scope global dynamic mngtmpaddr\nvalid_lft 25191sec preferred_lft 17991sec\ninet6 fe80::a00:27ff:fee1:7d6/64 scope link\nvalid_lft forever preferred_lft forever"
+  - regex: "^id$"
+    handler: "uid=0(root) gid=0(root) groups=0(root)"
+  - regex: "^ls /var/log$"
+    handler: "alternatives.log  apt  btmp  dpkg.log  faillog  installer  journal  lastlog  private  README  runit  wtmp"
+  - regex: "^ss -tuln$"
+    handler: "Netid          State           Recv-Q          Send-Q                   Local Address:Port                      Peer Address:Port          Process\nudp            UNCONN          0               0                              0.0.0.0:68                             0.0.0.0:*\ntcp            LISTEN          0               4096                           0.0.0.0:8081                           0.0.0.0:*\ntcp            LISTEN          0               4096                           0.0.0.0:8080                           0.0.0.0:*\ntcp            LISTEN          0               128
+0.0.0.0:8085                           0.0.0.0:*\ntcp            LISTEN          0               4096                           0.0.0.0:2222
+           0.0.0.0:*\ntcp            LISTEN          0               4096                           0.0.0.0:3306                           0.0.0.0:*\ntcp            LISTEN          0               4096                           0.0.0.0:22                             0.0.0.0:*\ntcp            LISTEN          0               4096                           0.0.0.0:2112                           0.0.0.0:*\ntcp            LISTEN          0               4096
+                0.0.0.0:80                             0.0.0.0:*\ntcp            LISTEN          0               4096                         127.0.0.1:39857                          0.0.0.0:*\ntcp            LISTEN          0               4096                              [::]:8081
+  [::]:*\ntcp            LISTEN          0               4096                              [::]:8080                              [::]:*\ntcp            LISTEN          0               128                               [::]:8085                              [::]:*\ntcp            LISTEN          0
+ 4096                              [::]:2222                              [::]:*\ntcp            LISTEN          0               4096
+       [::]:3306                              [::]:*\ntcp            LISTEN          0               4096                              [::]:22
+                  [::]:*\ntcp            LISTEN          0               4096                              [::]:2112                              [::]:*\ntcp            LISTEN          0               4096                              [::]:80                                [::]:*"
+  - regex: "^hostname$"
+    handler: "vbox "
+  - regex: "^ls -a$"
+    handler: "anacron  apparmor  bluetooth  cgroupfs-mount "
+  - regex: "^journalctl$"
+    handler: "Jan 20 08:01:11 vbox kernel: Linux version 6.1.0-30-amd64 (debian-kernel@lists.debian.org) (gcc-12 (Debian 12.2.0-14) 12.2.0, GNU ld (GNU Binutils for Debi>\nJan 20 08:01:11 vbox kernel: Command line: BOOT_IMAGE=/boot/vmlinuz-6.1.0-30-amd64 root=UUID=4e0df2f0-f180-458a-ba0c-b214b506ca4d ro quiet\nJan 20 08:01:11 vbox kernel: BIOS-provided physical RAM map:\nJan 20 08:01:11 vbox kernel: BIOS-e820: [mem 0x0000000000000000-0x000000000009fbff] usable\nJan 20 08:01:11 vbox kernel: BIOS-e820: [mem 0x000000000009fc00-0x000000000009ffff] reserved\nJan 20 08:01:11 vbox kernel: BIOS-e820: [mem 0x00000000000f0000-0x00000000000fffff] reserved\nJan 20 08:01:11 vbox kernel: BIOS-e820: [mem 0x0000000000100000-0x000000007ffeffff] usable\nJan 20 08:01:11 vbox kernel: BIOS-e820: [mem 0x000000007fff0000-0x000000007fffffff] ACPI data\nJan 20 08:01:11 vbox kernel: BIOS-e820: [mem 0x00000000fec00000-0x00000000fec00fff] reserved\nJan 20 08:01:11 vbox kernel: BIOS-e820: [mem 0x00000000fee00000-0x00000000fee00fff] reserved\nJan 20 08:01:11 vbox kernel: BIOS-e820: [mem 0x00000000fffc0000-0x00000000ffffffff] reserved\nJan 20 08:01:11 vbox kernel: NX (Execute Disable) protection: active\nJan 20 08:01:11 vbox kernel: SMBIOS 2.5 present.\nJan 20 08:01:11 vbox kernel: DMI: innotek GmbH VirtualBox/VirtualBox, BIOS VirtualBox 12/01/2006\nJan 20 08:01:11 vbox kernel: Hypervisor detected: KVM\nJan 20 08:01:11 vbox kernel: kvm-clock: Using msrs 4b564d01 and 4b564d00\nJan 20 08:01:11 vbox kernel: kvm-clock: using sched offset of 6799434638 cycles\nJan 20 08:01:11 vbox kernel: clocksource: kvm-clock: mask: 0xffffffffffffffff max_cycles: 0x1cd42e4dffb, max_idle_ns: 881590591483 ns\nJan 20 08:01:11 vbox kernel: tsc: Detected 2611.196 MHz processor\nJan 20 08:01:11 vbox kernel: e820: update [mem 0x00000000-0x00000fff] usable ==> reserved\nJan 20 08:01:11 vbox kernel: e820: remove [mem 0x000a0000-0x000fffff] usable\nJan 20 08:01:11 vbox kernel: last_pfn = 0x7fff0 max_arch_pfn = 0x400000000\nJan 20 08:01:11 vbox kernel: x86/PAT: Configuration [0-7]: WB  WC  UC- UC  WB  WP  UC- WT\nJan 20 08:01:11 vbox kernel: found SMP MP-table at [mem 0x0009fff0-0x0009ffff]\nJan 20 08:01:11 vbox kernel: Incomplete global flushes, disabling PCID\nJan 20 08:01:11 vbox kernel: RAMDISK: [mem 0x335b5000-0x35ad1fff]\nJan 20 08:01:11 vbox kernel: ACPI: Early table checksum verification disabled\nJan 20 08:01:11 vbox kernel: ACPI: RSDP 0x00000000000E0000 000024 (v02 VBOX  )\nJan 20 08:01:11 vbox kernel: ACPI: XSDT 0x000000007FFF0030 00003C (v01 VBOX   VBOXXSDT 00000001 ASL  00000061)\nJan 20 08:01:11 vbox kernel: ACPI: FACP 0x000000007FFF00F0 0000F4 (v04 VBOX   VBOXFACP 00000001 ASL  00000061)\nJan 20 08:01:11 vbox kernel: ACPI: DSDT 0x000000007FFF0610 002353 (v02 VBOX   VBOXBIOS 00000002 INTL 20100528)\nJan 20 08:01:11 vbox kernel: ACPI: FACS 0x000000007FFF0200 000040\nJan 20 08:01:11 vbox kernel: ACPI: FACS 0x000000007FFF0200 000040\nJan 20 08:01:11 vbox kernel: ACPI: APIC 0x000000007FFF0240 000054 (v02 VBOX   VBOXAPIC 00000001 ASL  00000061)\nJan 20 08:01:11 vbox kernel: ACPI: SSDT 0x000000007FFF02A0 00036C (v01 VBOX   VBOXCPUT 00000002 INTL 20100528)\nJan 20 08:01:11 vbox kernel: ACPI: Reserving FACP table memory at [mem 0x7fff00f0-0x7fff01e3]\nJan 20 08:01:11 vbox kernel: ACPI: Reserving DSDT table memory at [mem 0x7fff0610-0x7fff2962]\nJan 20 08:01:11 vbox kernel: ACPI: Reserving FACS table memory at [mem 0x7fff0200-0x7fff023f]\nJan 20 08:01:11 vbox kernel: ACPI: Reserving FACS table memory at [mem 0x7fff0200-0x7fff023f]\nJan 20 08:01:11 vbox kernel: ACPI: Reserving APIC table memory at [mem 0x7fff0240-0x7fff0293]"
+  - regex: "^ls$"
+    handler: "Documents Images  Desktop Downloads .m2 .kube .ssh  .docker"
+  - regex: "^pwd$"
+    handler: "/home/"
+  - regex: "^uname -m$"
+    handler: "x86_64"
+  - regex: "^docker ps$"
+    handler: "CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES"
+  - regex: "^docker .*$"
+    handler: "Error response from daemon: dial unix docker.raw.sock: connect: connection refused"
+  - regex: "^uname$"
+    handler: "Linux"
+  - regex: "^ps$"
+    handler: "  PID TTY           TIME CMD\n21642 ttys000    0:00.07 /bin/dockerd"
+  - regex: "^(.+)$"
+    handler: "command not found"
+serverVersion: "OpenSSH"
+serverName: "ubuntu"
+passwordRegex: "^(root|qwerty|Smoker666|123456|jenkins|minecraft|sinus|alex|postgres|Ly123456)$"
+deadlineTimeoutSeconds: 60
